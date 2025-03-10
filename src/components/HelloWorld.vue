@@ -5,15 +5,14 @@
 </template>
 
 <script setup>
-import{defineProps} from 'vue';
+import { defineProps } from 'vue';
 
 defineProps({
-  msg:{
-    type:String,
-    required:true,
+  msg: {
+    type: String,
+    required: true,
   },
-})
-;
+});
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

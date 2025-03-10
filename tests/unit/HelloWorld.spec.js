@@ -8,7 +8,6 @@ describe('HelloWorld.vue', () => {
         msg: 'salut',
       },
     });
-
     expect(wrapper.text()).toContain('salut');
   });
 });
