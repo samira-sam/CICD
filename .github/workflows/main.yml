@@ -3,13 +3,13 @@ name: CICD
 on:
   push:
     branches: [main]
-    
+
 jobs:
-  buil-and-test:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Ceckout du code
+      - name: Checkout du code
         uses: actions/checkout@v3
 
       - name: Configurer node.js
@@ -17,11 +17,26 @@ jobs:
         with:
           node-version: '16'
 
-      - name: installation des dépendences
-        run : npm install
+      - name: Installation des dépendances
+        run: npm install
 
-      - name: lancement des tests unitaires
-        run : npm run test
+      - name: Lancement des tests unitaires
+        run: npm run test
 
-      - name: build de l'appli
+      - name: Build de l'application
         run: npm run build
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v3  
+
+      - name: Déploiement sur GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
